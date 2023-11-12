@@ -2,8 +2,6 @@
 
 # Script Base de Datos
 
-
-
 CREATE TABLE Logins (
     LogId INT PRIMARY KEY,
     Password VARCHAR(30)
