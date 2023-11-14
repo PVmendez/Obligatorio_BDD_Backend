@@ -3,8 +3,7 @@ import pkg from 'body-parser';
 import cors from "cors";
 import { router } from './app/routes/index.js';
 import morgan from 'morgan';
-import mysql from 'mysql';
-import myConnection from 'express-myconnection'
+import { conexion } from './app/utils/dbConnection.js';
 
 var app = express();
 var port = 8080;
@@ -21,14 +20,11 @@ app.use(cors({
   }));
 app.use(router);
 app.use(morgan('dev'));
-app.use(myConnection(mysql, {
-	host: 'localhost',
-	user: 'root',
-	password: '',
-	port: 3306,
-	database: ''
-}, 'single'));
 
+conexion.connect((error) => {
+	if (error) throw error;
+	else console.log("Database running");
+})
 app.listen(port, function(){
 	console.log(`Server running in http://localhost:${port}`);
 });
