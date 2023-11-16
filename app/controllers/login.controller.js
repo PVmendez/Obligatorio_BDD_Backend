@@ -6,12 +6,14 @@ import jwt from "jsonwebtoken";
 export const login = (req, res) => {
   const { logId, password } = req.body;
 
+  console.log(req.body)
+
   const query = `
   SELECT f.Ci, f.Nombre, f.Apellido, f.Email, l.Password
   FROM Funcionarios f
   JOIN Logins l ON f.LogId = l.LogId
   WHERE f.logId = ${logId};
-`;
+`; 
 
   conexion.query(query, [logId], (error, results, fields) => {
     if (error) throw error;
@@ -25,7 +27,7 @@ export const login = (req, res) => {
           Apellido: user.Apellido,
           Email: user.Email,
         },
-        "tu_secreto_secreto",
+        "tu_secreto_secreto", 
         { expiresIn: "1h" }
       );
 
