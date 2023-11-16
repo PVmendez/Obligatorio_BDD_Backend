@@ -11,12 +11,11 @@ export const login = (req, res) => {
   FROM Funcionarios f
   JOIN Logins l ON f.LogId = l.LogId
   WHERE f.logId = ${logId};
-`;
+`; 
 
   conexion.query(query, [logId], (error, results, fields) => {
     if (error) throw error;
     const user = results[0];
-    console.log(results); 
     if (user.Password && user.Password === password) {
       const token = jwt.sign(
         {
@@ -25,7 +24,7 @@ export const login = (req, res) => {
           Apellido: user.Apellido,
           Email: user.Email,
         },
-        "tu_secreto_secreto",
+        "tu_secreto_secreto", 
         { expiresIn: "1h" }
       );
 
