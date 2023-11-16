@@ -6,8 +6,6 @@ import jwt from "jsonwebtoken";
 export const login = (req, res) => {
   const { logId, password } = req.body;
 
-  console.log(req.body)
-
   const query = `
   SELECT f.Ci, f.Nombre, f.Apellido, f.Email, l.Password
   FROM Funcionarios f
@@ -18,7 +16,6 @@ export const login = (req, res) => {
   conexion.query(query, [logId], (error, results, fields) => {
     if (error) throw error;
     const user = results[0];
-    console.log(results); 
     if (user.Password && user.Password === password) {
       const token = jwt.sign(
         {
