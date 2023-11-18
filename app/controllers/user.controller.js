@@ -63,7 +63,7 @@ export const postUser = (req, res) => {
 export const createUsers = (req, res) => {
   const userCi = req.body.Ci;
   conexion.query(
-    `UPDATE Funcionarios SET Actualizo = 0 WHERE Ci = ${userCi}`,
+    `UPDATE Funcionarios SET Actualizo = 1 WHERE Ci = ${userCi}`,
     (error, results, fields) => {
       if (error) throw error;
       res.status(200).json({ message: "Datos actualizados correctamente" });
