@@ -1,14 +1,20 @@
 "use strict";
 
 import express from "express";
-import { getUsers, createUsers } from "../controllers/user.controller.js";
-import { login } from "../controllers/login.controller.js";
+import { getUsers, updateUsers, getUserTable, sendMail } from "../controllers/user.controller.js";
+import { createUsers, getLogins, login } from "../controllers/login.controller.js";
 
 const router = express.Router();
 
 router.get("/users", getUsers);
-router.post("/users", createUsers);
+router.post("/users", updateUsers);
 
+router.get("/user-table", getUserTable);
+
+router.get("/login", getLogins);
 router.post("/login", login);
+router.post("/register", createUsers); 
 
-export { router };
+router.post("/mail", sendMail);
+
+export { router }; 
