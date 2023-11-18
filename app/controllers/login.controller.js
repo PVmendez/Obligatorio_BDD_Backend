@@ -16,6 +16,7 @@ export const login = (req, res) => {
   conexion.query(query, [logId], (error, results, fields) => {
     if (error) throw error;
     const user = results[0];
+    console.log(req.body);
     if (user.Password && user.Password === password) {
       const token = jwt.sign(
         {
