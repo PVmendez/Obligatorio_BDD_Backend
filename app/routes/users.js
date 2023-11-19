@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get("/users", getUsers);
 router.post("/users", updateUsers);
+router.post("/employee", postUser);
 
 router.post("/user", postUser);
 

@@ -69,7 +69,7 @@ export const getUserTable = (req, res) => {
       res.status(200).json(results);
     }
   );
-}; 
+};
 
 export const updateUsers = (req, res) => {
   const userCi = req.body.Ci;
@@ -92,7 +92,7 @@ export const sendMail = (req, res) => {
   });
 
   const { destinatario, mensaje } = req.body;
- 
+
   const mailOptions = {
     from: "valentino@hackmetrix.com",
     to: destinatario,
