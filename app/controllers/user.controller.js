@@ -18,7 +18,7 @@ export const getUserTable = (req, res) => {
       res.status(200).json(results);
     }
   );
-}; 
+};
 
 export const updateUsers = (req, res) => {
   const userCi = req.body.Ci;
@@ -41,7 +41,7 @@ export const sendMail = (req, res) => {
   });
 
   const { destinatario, mensaje } = req.body;
- 
+
   const mailOptions = {
     from: "valentino@hackmetrix.com",
     to: destinatario,
@@ -57,5 +57,58 @@ export const sendMail = (req, res) => {
       console.log("Correo enviado: " + info.response);
       res.status(200).send("Correo enviado con éxito");
     }
+  });
+};
+
+export const postUser = (req, res) => {
+  const {
+    Ci,
+    Name,
+    Surname,
+    Birthdate,
+    Location,
+    Mail,
+    Phone,
+    IssueDate,
+    ExpirationDate,
+    Receipt,
+  } = req.body;
+
+  const formattedBirthdate = new Date(Birthdate).toISOString().slice(0, 10);
+  const formattedExpirationDate = new Date(ExpirationDate)
+    .toISOString()
+    .slice(0, 10);
+  const formatedIssueDate = "2023-11-14";
+
+  const query1 = `INSERT INTO Funcionarios (Ci, Nombre, Apellido, Fch_Nacimiento, Direccion, Email, Telefono) 
+                  VALUES ('${Ci}', '${Name}', '${Surname}', '${formattedBirthdate}', '${Location}', '${Mail}', '${Phone}')`;
+
+  const values1 = [
+    Ci,
+    Name,
+    Surname,
+    formattedBirthdate,
+    Location,
+    Mail,
+    Phone,
+  ];
+
+  const query2 = `INSERT INTO Carnet_Salud (Ci, Fch_Emision, Fch_Vencimiento, Comprobante) 
+                  VALUES ('${Ci}', '${formatedIssueDate}', '${formattedExpirationDate}', '${Receipt}')`;
+
+  const values2 = [Ci, formatedIssueDate, formattedExpirationDate, Receipt];
+
+  conexion.query(query1, values1, (error1, results1, fields1) => {
+    if (error1) {
+      throw error1;
+    }
+
+    conexion.query(query2, values2, (error2, results2, fields2) => {
+      if (error2) {
+        throw error2;
+      }
+
+      res.status(200).json(results2);
+    });
   });
 };
