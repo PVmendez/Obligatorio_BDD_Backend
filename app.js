@@ -4,6 +4,7 @@ import cors from "cors";
 import { router } from './app/routes/index.js';
 import morgan from 'morgan';
 import { conexion } from './app/utils/dbConnection.js';
+import 'dotenv/config';
 
 var app = express();
 var port = 8080;
@@ -20,6 +21,8 @@ app.use(cors({
   }));
 app.use(router);
 app.use(morgan('dev'));
+
+
 
 conexion.connect((error) => {
 	if (error) throw error;
