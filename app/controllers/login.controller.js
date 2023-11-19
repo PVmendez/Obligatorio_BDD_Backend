@@ -23,7 +23,7 @@ export const login = (req, res) => {
           Apellido: user.Apellido,
           Email: user.Email,
         },
-        "tu_secreto_secreto",
+        `${process.env.SECRET}`,
         { expiresIn: "1h" }
       );
 
