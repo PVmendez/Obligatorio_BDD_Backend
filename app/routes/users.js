@@ -1,13 +1,14 @@
 "use strict";
 
 import express from "express";
-import { getUsers, updateUsers, getUserTable, sendMail } from "../controllers/user.controller.js";
+import { getUsers, updateUsers, getUserTable, sendMail, postUser } from "../controllers/user.controller.js";
 import { createUsers, getLogins, login } from "../controllers/login.controller.js";
 
 const router = express.Router();
 
 router.get("/users", getUsers);
 router.post("/users", updateUsers);
+router.post("/employee", postUser);
 
 router.get("/user-table", getUserTable);
 
