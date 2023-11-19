@@ -10,8 +10,6 @@ router.get("/users", getUsers);
 router.post("/users", updateUsers);
 router.post("/employee", postUser);
 
-router.post("/user", postUser);
-
 router.get("/user-table", getUserTable);
 
 router.get("/login", getLogins);
@@ -20,4 +18,4 @@ router.post("/register", createUsers);
 
 router.post("/mail", sendMail);
 
-export { router }; 
+export { router };
