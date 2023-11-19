@@ -35,15 +35,15 @@ export const sendMail = (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "valentino@hackmetrix.com",
-      pass: "54325432AbC.",
+      user: process.env.SENDER_MAIL,
+      pass: process.env.SENDER_PASSWORD,
     },
   });
 
   const { destinatario, mensaje } = req.body;
 
   const mailOptions = {
-    from: "valentino@hackmetrix.com",
+    from: process.env.SENDER_MAIL,
     to: destinatario,
     subject: "Recordatorio",
     text: mensaje,
