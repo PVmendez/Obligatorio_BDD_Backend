@@ -35,15 +35,15 @@ export const sendMail = (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "valentino@hackmetrix.com",
-      pass: "54325432AbC.",
+      user: process.env.SENDER_MAIL,
+      pass: process.env.SENDER_PASSWORD,
     },
   });
 
   const { destinatario, mensaje } = req.body;
 
   const mailOptions = {
-    from: "valentino@hackmetrix.com",
+    from: process.env.SENDER_MAIL,
     to: destinatario,
     subject: "Recordatorio",
     text: mensaje,
@@ -78,7 +78,9 @@ export const postUser = (req, res) => {
   const formattedExpirationDate = new Date(ExpirationDate)
     .toISOString()
     .slice(0, 10);
-  const formatedIssueDate = "2023-11-14";
+  const formatedIssueDate = new Date(IssueDate)
+  .toISOString()
+  .slice(0, 10);
 
   const query1 = `INSERT INTO Funcionarios (Ci, Nombre, Apellido, Fch_Nacimiento, Direccion, Email, Telefono) 
                   VALUES ('${Ci}', '${Name}', '${Surname}', '${formattedBirthdate}', '${Location}', '${Mail}', '${Phone}')`;

@@ -18,4 +18,4 @@ router.post("/register", createUsers);
 
 router.post("/mail", sendMail);
 
-export { router }; 
+export { router };
