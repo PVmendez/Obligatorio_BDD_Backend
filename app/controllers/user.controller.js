@@ -78,7 +78,9 @@ export const postUser = (req, res) => {
   const formattedExpirationDate = new Date(ExpirationDate)
     .toISOString()
     .slice(0, 10);
-  const formatedIssueDate = "2023-11-14";
+  const formatedIssueDate = new Date(IssueDate)
+  .toISOString()
+  .slice(0, 10);
 
   const query1 = `INSERT INTO Funcionarios (Ci, Nombre, Apellido, Fch_Nacimiento, Direccion, Email, Telefono) 
                   VALUES ('${Ci}', '${Name}', '${Surname}', '${formattedBirthdate}', '${Location}', '${Mail}', '${Phone}')`;
