@@ -1,17 +1,22 @@
-const verifyToken = () => (req, res, next) => {
-  const token = req.headers.authorization;
+import jwt from "jsonwebtoken";
+
+export const verifyToken = () => (req, res, next) => {
+  const token = req.header('Authorization');
 
   if (!token) {
-    return res.status(403).json({ message: "Token no proporcionado" });
+    return res.status(401).json({ mensaje: 'Acceso denegado. Token no proporcionado.' });
   }
 
-  jwt.verify(token, secretKey, (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ message: "Token inválido" });
-    }
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET);
 
-    req.user = decoded;
+    req.usuario = decoded.usuario;
 
     next();
-  });
+  } catch (error) {
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ mensaje: 'Token expirado. Por favor, inicia sesión nuevamente.' });
+    }
+    return res.status(401).json({ mensaje: 'Token no válido.' });
+  }
 };
