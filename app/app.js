@@ -7,7 +7,6 @@ import swaggerUi from "swagger-ui-express";
 import { swagger as swaggerDocument } from "./config/swagger.js";
 import { router as rest } from "./routes/index.js";
 
-
 const app = express();
 
 app.use(express.json());

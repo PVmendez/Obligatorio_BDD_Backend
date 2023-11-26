@@ -14,7 +14,6 @@ export const login = (req, res) => {
 
   conexion.query(query, [logId], (error, results, fields) => {
     if (error) throw error;
-    console.log(results);
     const user = results[0];
     if (user.Password && user.Password === password) {
       const token = jwt.sign( 
@@ -24,7 +23,7 @@ export const login = (req, res) => {
           Apellido: user.Apellido,
           Email: user.Email,
         },
-        `${process.env.SECRET}`,
+        process.env.SECRET,
         { expiresIn: "1h" }
       );
 
@@ -44,7 +43,6 @@ export const getLogins = (req, res) => {
 
 export const createUsers = (req, res) => {
   const { username, password } = req.body;
-  console.log(username, password);
   conexion.query(
     `INSERT INTO Logins VALUES ('${username}', '${password}')`,
     (error, results, fields) => {
