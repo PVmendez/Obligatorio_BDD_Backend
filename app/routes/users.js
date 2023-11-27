@@ -1,7 +1,7 @@
 "use strict";
 
 import express from "express";
-import { getUsers, updateUsers, getUserTable, sendMail, postUser } from "../controllers/user.controller.js";
+import { getUsers, updateUsers, getUserTable, sendMail, postUser, getEmployee } from "../controllers/user.controller.js";
 import { createUsers, getLogins, login } from "../controllers/login.controller.js";
 import ROLES_LIST from "../config/roles_list.js";
 import verifyRoles from "../middleware/verifyRoles.js";
