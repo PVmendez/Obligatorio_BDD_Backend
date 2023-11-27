@@ -10,8 +10,8 @@ export const verifyToken = () => (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.SECRET);
 
-    req.usuario = decoded.usuario;
-
+    req.user = decoded;
+    req.roles = decoded.UserInfo.roles;
     next();
   } catch (error) {
     if (error.name === 'TokenExpiredError') {
