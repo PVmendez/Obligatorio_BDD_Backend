@@ -10,6 +10,14 @@ export const getUsers = (req, res) => {
   });
 };
 
+export const getEmployee = (req, res) => {
+  const { logId } = req.params;
+  conexion.query(`SELECT * FROM Funcionarios WHERE LogId = '${logId}'`, (error, results, fields) => {
+    if (error) throw error;
+    res.status(200).json(results);
+  });
+};
+
 export const getUserTable = (req, res) => {
   conexion.query(
     "SELECT F.CI, F.Nombre, F.Apellido, F.Email, CASE WHEN CS.Fch_Emision IS NOT NULL THEN 'Sí' ELSE 'No' END AS Tiene_Carnet, CASE WHEN CS.Fch_Vencimiento < CURDATE() THEN 'Sí' ELSE 'No' END AS Carnet_Vencido FROM Funcionarios F LEFT JOIN Carnet_Salud CS ON F.CI = CS.CI WHERE F.Actualizo = 0;",
@@ -32,6 +40,7 @@ export const updateUsers = (req, res) => {
 };
 
 export const sendMail = (req, res) => {
+
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
