@@ -19,16 +19,16 @@ export const login = (req, res) => {
     if (user.Password && user.Password === password) {
       const token = jwt.sign( 
         {
-          Ci: user.Ci,
-          Nombre: user.Nombre,
-          Apellido: user.Apellido,
-          Email: user.Email,
+          "UserInfo": {
+            "username": user.LogId,
+            "roles": user.Roles
+          }
         },
         `${process.env.SECRET}`,
         { expiresIn: "1h" }
       );
 
-      res.json({ token, username: user.Nombre });
+      res.json({ token, username: user.LogId, roles: user.Roles });
     } else {
       res.status(403).json({ message: "No existen usuarios con ese nombre" });
     }
@@ -46,10 +46,11 @@ export const createUsers = (req, res) => {
   const { username, password } = req.body;
   console.log(username, password);
   conexion.query(
-    `INSERT INTO Logins VALUES ('${username}', '${password}')`,
+    `INSERT INTO Logins VALUES ('${username}', '${password}', ${[2001]})`,
+    //agregar tabla con usuario y rol.
     (error, results, fields) => {
       if (error) throw error;
       res.status(200).json({ message: "Usuario creado correctamente" });
-    } 
+    }
   ); 
 }; 

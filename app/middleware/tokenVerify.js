@@ -1,4 +1,4 @@
-const verifyToken = () => (req, res, next) => {
+export const verifyToken = () => (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
@@ -11,7 +11,7 @@ const verifyToken = () => (req, res, next) => {
     }
 
     req.user = decoded;
-
+    req.roles = decoded.UserInfo.roles;
     next();
   });
 };
