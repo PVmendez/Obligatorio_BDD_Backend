@@ -1,10 +1,30 @@
 # Obligatorio_BDD_Backend
 
+# Ejecución:
+Instalar dependencias:
+
+npm install
+
+Ejecutar:
+
+nodemon
+
+Alternativa en caso de error:
+
+node -r dotenv/config app.js
+
+# Base de Datos
+
+Optamos por agregar dos nuevas columnas, Roles y Actualizo, a las tablas Logins y Funcionarios respectivamente.
+La columna Roles almacena los datos de los tipos de usuarios en forma de entero, ya sea Admin (5150) y usuario normal (2001). Decidimos hacerlo con enteros y no booleans por si a futuro decidimos agregar nuevos Roles.
+La finalidad de Actualizo es agregar un tipo de valor booleano el cual está relacionado a cada usuario y especifica si el mismo ya actualizó su información sobre su carnet de salud. Encontramos necesario tener este tipo de información sobre cada usuario.
+
 # Script Base de Datos
 
 CREATE TABLE Logins (
     LogId INT PRIMARY KEY,
-    Password VARCHAR(30)
+    Password VARCHAR(30),
+    Roles JSON
 );
 
 CREATE TABLE Funcionarios (
@@ -16,7 +36,8 @@ CREATE TABLE Funcionarios (
     Telefono VARCHAR(20),
     Email VARCHAR(256),
     LogId INT,
-    FOREIGN KEY (LogId) REFERENCES Logins(LogId)
+    FOREIGN KEY (LogId) REFERENCES Logins(LogId),
+    Actualizo BOOL
 );
 
 CREATE TABLE Agenda (

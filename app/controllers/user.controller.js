@@ -1,7 +1,9 @@
 "use strict";
 
+import { Resend } from "resend";
 import { conexion } from "../utils/dbConnection.js";
-import nodemailer from "nodemailer";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const getUsers = (req, res) => {
   conexion.query("SELECT * FROM Funcionarios", (error, results, fields) => {
@@ -15,6 +17,15 @@ export const getEmployee = (req, res) => {
   conexion.query(`SELECT * FROM Funcionarios WHERE LogId = '${logId}'`, (error, results, fields) => {
     if (error) throw error;
     res.status(200).json(results);
+  });
+};
+
+export const getEmployeeUpdated = (req, res) => {
+  const { logId } = req.params;
+  conexion.query(`SELECT Actualizo FROM Funcionarios WHERE LogId = '${logId}'`, (error, results, fields) => {
+    if (error) throw error;
+    console.log(results[0])
+    res.status(200).json(results[0]);
   });
 };
 
@@ -39,31 +50,17 @@ export const updateUsers = (req, res) => {
   );
 };
 
-export const sendMail = (req, res) => {
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.SENDER_MAIL,
-      pass: process.env.SENDER_PASSWORD,
-    },
-  });
-
+export const sendMail = async (req, res) => {
   const { destinatario, mensaje } = req.body;
 
-  const mailOptions = {
-    from: process.env.SENDER_MAIL,
-    to: destinatario,
+  const data = await resend.emails.send({
+    from: `Pablo Méndez <${process.env.SENDER_MAIL}>`,
+    to: [destinatario],
     subject: "Recordatorio",
-    text: mensaje,
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error(error);
-      res.status(500).send("Error al enviar el correo");
-    } else res.status(200).send("Correo enviado con éxito");
+    html: `<strong>${mensaje}</strong>`,
   });
+  console.log(data)
+  res.status(200).json({ data });
 };
 
 export const postUser = (req, res) => {

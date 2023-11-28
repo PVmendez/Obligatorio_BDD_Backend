@@ -41,11 +41,19 @@ export const getLogins = (req, res) => {
   });
 };
 
+export const getUser= (req, res) => {
+  const { logId } = req.params;
+  conexion.query(`SELECT * FROM Logins WHERE LogId = '${logId}'`, (error, results, fields) => {
+    if (error) throw error;
+    console.log(results[0])
+    res.status(200).json(results[0]);
+  });
+};
+
 export const createUsers = (req, res) => {
   const { username, password } = req.body;
   conexion.query(
     `INSERT INTO Logins VALUES ('${username}', '${password}', '${[2001]}')`,
-    //agregar tabla con usuario y rol.
     (error, results, fields) => {
       if (error) throw error;
       res.status(200).json({ message: "Usuario creado correctamente" });

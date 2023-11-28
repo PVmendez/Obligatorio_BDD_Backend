@@ -1,8 +1,8 @@
 "use strict";
 
 import express from "express";
-import { getUsers, updateUsers, getUserTable, sendMail, postUser, getEmployee } from "../controllers/user.controller.js";
-import { createUsers, getLogins, login } from "../controllers/login.controller.js";
+import { getUsers, updateUsers, getUserTable, sendMail, postUser, getEmployee, getEmployeeUpdated } from "../controllers/user.controller.js";
+import { createUsers, getLogins, getUser, login } from "../controllers/login.controller.js";
 import ROLES_LIST from "../config/roles_list.js";
 import verifyRoles from "../middleware/verifyRoles.js";
 import { verifyToken } from "../middleware/tokenVerify.js";
@@ -24,7 +24,9 @@ router.use((req, res, next) => {
 });
 
 router.get("/users", getUsers);
+router.get("/user/:logId", getUser);  
 router.get("/employee/:logId", getEmployee);
+router.get("/employee-updated/:logId", getEmployeeUpdated)
 router.get("/user-table", getUserTable);
 router.get("/login", getLogins);
 router.get("/reserves", getReserves);
