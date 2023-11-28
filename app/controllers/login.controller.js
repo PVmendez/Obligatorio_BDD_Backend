@@ -53,7 +53,7 @@ export const getUser= (req, res) => {
 export const createUsers = (req, res) => {
   const { username, password } = req.body;
   conexion.query(
-    `INSERT INTO Logins VALUES ('${username}', '${password}', ${[2001]})`,
+    `INSERT INTO Logins VALUES ('${username}', '${password}', '${[2001]}')`,
     (error, results, fields) => {
       if (error) throw error;
       res.status(200).json({ message: "Usuario creado correctamente" });
