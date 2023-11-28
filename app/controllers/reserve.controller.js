@@ -27,7 +27,7 @@ export const createReserves = (req, res) => {
     (error, results, fields) => {
       if (error) throw error;
       res.status(200).json({ message: "Reserva creada exitosamente" });
-    }
+    } 
   );
 };
 
