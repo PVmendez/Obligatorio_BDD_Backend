@@ -1,5 +1,17 @@
 # Obligatorio_BDD_Backend
 
+Instalar dependencias:
+
+npm install
+
+Ejecutar:
+
+nodemon
+
+Alternativa en caso de error:
+
+node -r dotenv/config app.js
+
 # Script Base de Datos
 
 CREATE TABLE Logins (
