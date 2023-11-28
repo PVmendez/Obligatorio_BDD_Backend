@@ -4,7 +4,8 @@
 
 CREATE TABLE Logins (
     LogId INT PRIMARY KEY,
-    Password VARCHAR(30)
+    Password VARCHAR(30),
+    Roles JSON
 );
 
 CREATE TABLE Funcionarios (
@@ -16,7 +17,8 @@ CREATE TABLE Funcionarios (
     Telefono VARCHAR(20),
     Email VARCHAR(256),
     LogId INT,
-    FOREIGN KEY (LogId) REFERENCES Logins(LogId)
+    FOREIGN KEY (LogId) REFERENCES Logins(LogId),
+    Actualizo BOOL
 );
 
 CREATE TABLE Agenda (
