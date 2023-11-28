@@ -1,0 +1,6 @@
+{
+    "execMap": {
+      "js": "node -r dotenv/config"
+    },
+    "script": "app.js"
+}
