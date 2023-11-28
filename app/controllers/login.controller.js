@@ -44,7 +44,7 @@ export const getLogins = (req, res) => {
 export const createUsers = (req, res) => {
   const { username, password } = req.body;
   conexion.query(
-    `INSERT INTO Logins VALUES ('${username}', '${password}', ${[2001]})`,
+    `INSERT INTO Logins VALUES ('${username}', '${password}', '${[2001]}')`,
     //agregar tabla con usuario y rol.
     (error, results, fields) => {
       if (error) throw error;
