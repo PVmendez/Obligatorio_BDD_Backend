@@ -13,6 +13,10 @@ Alternativa en caso de error:
 
 node -r dotenv/config app.js
 
+Credenciales Usuario Administrador:
+Username: pablomendez
+Contraseña: pablomendez
+
 # Base de Datos
 
 Optamos por agregar dos nuevas columnas, Roles y Actualizo, a las tablas Logins y Funcionarios respectivamente.
